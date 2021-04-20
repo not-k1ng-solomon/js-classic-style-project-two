@@ -1,32 +1,45 @@
 const modals = () => {
     var validateFormFlag = true;
+    var flagGift = false;
 
-    function bindModal(triggerSelector, modalSelector, closeSelector, closeClickOverlay = true, options = false) {
+    const scroll = calcScroll(),
+        windowArray = document.querySelectorAll('[data-modal]');
+
+    const windowClosed = (animated = false) => {
+        windowArray.forEach(item => {
+            item.style.display = 'none';
+            if(animated === true){
+                item.classList.add('animated', 'fadeIn');
+            }
+        });
+        document.body.style.overflowY = '';
+        document.body.style.marginRight = '0px';
+    };
+
+    const owerflowHidden = () => {
+        document.body.style.overflow = 'hidden';
+        document.body.style.marginRight = `${scroll}px`;
+    };
+
+    function bindModal(triggerSelector, modalSelector, closeSelector, destroy = false, options = false) {
         const trigger = document.querySelectorAll(triggerSelector),
             modal = document.querySelector(modalSelector),
-            close = document.querySelector(closeSelector),
-            window = document.querySelectorAll('[data-modal]'),
-            scroll = calcScroll();
+            close = document.querySelector(closeSelector);
 
-        const windowClosed = () => {
-            window.forEach(item => {
-                item.style.display = 'none';
-            });
-            document.body.style.overflowY = '';
-            document.body.style.marginRight = '0px';
-        };
 
-        const owerflowHidden = () => {
-            document.body.style.overflow = 'hidden';
-            document.body.style.marginRight = `${scroll}px`;
-        };
         trigger.forEach(item => {
-
             item.addEventListener('click', (e) => {
                 if (e.target) {
                     e.preventDefault();
                 }
-                windowClosed();
+
+                flagGift = true;
+
+                if (destroy) {
+                    item.remove();
+                }
+
+                windowClosed(true);
                 modal.style.display = 'block';
                 owerflowHidden();
                 /*                if (options === false) {
@@ -50,7 +63,7 @@ const modals = () => {
         });
 
         modal.addEventListener('click', (e) => {
-            if (e.target === modal && closeClickOverlay) {
+            if (e.target === modal) {
                 windowClosed();
             }
         })
@@ -99,8 +112,21 @@ const modals = () => {
         return scrollWidth;
     }
 
+    function openModalScroll(selector) {
+        let scrollTop = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+        window.addEventListener('scroll', () => {
+            if (flagGift === false && (window.pageYOffset + document.documentElement.clientHeight >=
+                scrollTop)) {
+                flagGift = true;
+                document.querySelector(selector).click();
+            }
+        });
+    }
+
     bindModal('.button-design', '.popup-design', '.popup-design .popup-close');
     bindModal('.button-consultation', '.popup-consultation', '.popup-consultation .popup-close');
+    bindModal('.fixed-gift', '.popup-gift', '.popup-gift .popup-close', true, true);
+    openModalScroll('.fixed-gift');
     // showModalByTyme('.popup-consultation', 5000);
 };
 
