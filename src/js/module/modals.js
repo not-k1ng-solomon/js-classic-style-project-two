@@ -113,7 +113,7 @@ const modals = () => {
     }
 
     function openModalScroll(selector) {
-        let scrollTop = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+        let scrollTop = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight) - 1000;
         window.addEventListener('scroll', () => {
             if (flagGift === false && (window.pageYOffset + document.documentElement.clientHeight >=
                 scrollTop)) {
