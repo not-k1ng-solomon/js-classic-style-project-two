@@ -38,8 +38,6 @@ const forms = () => {
 
     };*/
 
-
-
     upload.forEach(item => {
         item.addEventListener('input', () => {
             console.log(item.files[0]);
@@ -51,6 +49,7 @@ const forms = () => {
             item.previousElementSibling.textContent = name;
         });
     });
+
     forms.forEach(item => {
         item.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -76,8 +75,9 @@ const forms = () => {
             const formData = new FormData(item);
             let api;
             item.closest('.popup-design') || item.closest('.calc_form') ? api = path.designer : api = path.question;
-
-            console.log(api);
+            if (item.closest('.calc_form')){
+                formData.append('calc-sum',document.querySelector('[data-calc-sum]').dataset.calcSum);
+            }
 
             postData(api, formData)
                 .then(res => {
