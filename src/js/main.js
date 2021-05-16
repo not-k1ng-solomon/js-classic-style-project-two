@@ -10,14 +10,14 @@ import pictureSize from "./module/pictureSize";
 import accordion from "./module/accordion";
 import burger from "./module/burger";
 import scrolling from "./module/scrolling";
-
+import drop from "./module/drop";
 
 window.addEventListener('DOMContentLoaded', () => {
     "use strict";
     document.body.style.overflowX = "hidden";
     modals();
     sliders('.feedback-slider-item', '', '.main-prev-btn', '.main-next-btn', true);
-    sliders('.main-slider-item', 'vertical');
+    // sliders('.main-slider-item', 'vertical');
     forms();
     mask('[name="phone"]');
     checkTextInput('[name="name"]');
@@ -29,4 +29,5 @@ window.addEventListener('DOMContentLoaded', () => {
     accordion('.accordion-heading','.accordion-block');
     burger('.burger-menu','.burger');
     scrolling('.pageup');
+    drop();
 });

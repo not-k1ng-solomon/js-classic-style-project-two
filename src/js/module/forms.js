@@ -26,17 +26,17 @@ const forms = () => {
         inputs.forEach(item => {
             item.value = "";
         });
-        upload.forEach(item=>{
+        upload.forEach(item => {
             item.previousElementSibling.textContent = 'Файл не выбран';
         });
     };
 
-/*    const cleanForms = () => {
-        forms.forEach(item => {
-            item.reset();
-        });
+    /*    const cleanForms = () => {
+            forms.forEach(item => {
+                item.reset();
+            });
 
-    };*/
+        };*/
 
     upload.forEach(item => {
         item.addEventListener('input', () => {
@@ -44,9 +44,11 @@ const forms = () => {
             let dots;
             const arr = item.files[0].name.split('.');
             arr[0].length > 6 ? dots = '...' : dots = '.';
-
             const name = arr[0].substring(0, 6) + dots + arr[1];
-            item.previousElementSibling.textContent = name;
+            let div = item.previousElementSibling;
+            div.textContent = name;
+            div.previousElementSibling.textContent = 'Изменить фотографию';
+
         });
     });
 
@@ -75,8 +77,8 @@ const forms = () => {
             const formData = new FormData(item);
             let api;
             item.closest('.popup-design') || item.closest('.calc_form') ? api = path.designer : api = path.question;
-            if (item.closest('.calc_form')){
-                formData.append('calc-sum',document.querySelector('[data-calc-sum]').dataset.calcSum);
+            if (item.closest('.calc_form')) {
+                formData.append('calc-sum', document.querySelector('[data-calc-sum]').dataset.calcSum);
             }
 
             postData(api, formData)
@@ -96,6 +98,8 @@ const forms = () => {
                         item.style.display = 'block';
                         item.classList.remove('fadeOutUp');
                         item.classList.add('fadeInUp');
+                        item.classList.add('fadeInUp');
+                        item.querySelector('.file_upload button').textContent = 'Загрузить фотографию';
                     }, 5000);
                 });
         });

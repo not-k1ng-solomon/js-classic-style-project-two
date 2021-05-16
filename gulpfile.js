@@ -4,8 +4,8 @@ const gulp = require("gulp");
 const webpack = require("webpack-stream");
 const browsersync = require("browser-sync");
 
-const dist = "./dist/";
-// const dist = "C:/OSPanel/domains/js-classic-style-project2/";
+// const dist = "./dist/";
+const dist = "C:/OSPanel/domains/js-classic-style-project2/";
 
 gulp.task("copy-html", () => {
     return gulp.src("./src/index.html")
