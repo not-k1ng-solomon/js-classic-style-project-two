@@ -1,4 +1,4 @@
-import {postData} from "../services/requests";
+import {addDot,loadingWithoutForm} from "./uploadControl";
 
 const drop = () => {
     const fileInputs = document.querySelectorAll('[name="upload"]');
@@ -49,36 +49,13 @@ const drop = () => {
     fileInputs.forEach(input => {
         input.addEventListener('drop', (e) => {
             input.files = e.dataTransfer.files;
+            addDot(input);
             if (input.closest('form') === null) {
-                const formData = new FormData();
-                formData.append('upload', input.files[0]);
                 let api = 'assets/server.php';
-                let div = input.previousElementSibling;
-                postData(api, formData)
-                    .then(res => {
-                        console.log(res);
-                        div.previousElementSibling.textContent = 'Фотография загружена';
-                    })
-                    .catch(() => {
-                        div.previousElementSibling.textContent = 'Ошибка';
-                    });
-                console.log(formData);
-            } else console.log('asd');
+                loadingWithoutForm(api, input);
+            }
         });
     });
-
-    function addDot(item) {
-        let dots;
-        const arr = item.files[0].name.split('.');
-        arr[0].length > 6 ? dots = '...' : dots = '.';
-
-        const name = arr[0].substring(0, 6) + dots + arr[1];
-        let div = item.previousElementSibling;
-        div.textContent = name;
-        div.previousElementSibling.textContent = 'Изменить фотографию';
-    }
-
-
 };
 
 export default drop;

@@ -1,5 +1,5 @@
 // import checkNumberInputs from "./checkNumberInputs";
-
+import {loadingWithoutForm} from "./uploadControl";
 import {postData} from "../services/requests";
 
 const forms = () => {
@@ -48,7 +48,10 @@ const forms = () => {
             let div = item.previousElementSibling;
             div.textContent = name;
             div.previousElementSibling.textContent = 'Изменить фотографию';
-
+            if (item.closest('form') === null) {
+                let api = 'assets/server.php';
+                loadingWithoutForm(api, item);
+            }
         });
     });
 
@@ -80,7 +83,6 @@ const forms = () => {
             if (item.closest('.calc_form')) {
                 formData.append('calc-sum', document.querySelector('[data-calc-sum]').dataset.calcSum);
             }
-
             postData(api, formData)
                 .then(res => {
                     console.log(res);
