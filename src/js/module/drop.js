@@ -13,19 +13,24 @@ const drop = () => {
         e.preventDefault();
         e.stopPropagation();
     }
-
+/*
     function highLight(item) {
         item.closest('.file_upload').style.border = "5px solid yellow";
         item.closest('.file_upload').style.backgroundColor = "rgba(0,0,0,0.7)";
+    }*/
+    function highLight(item) {
+        // item.closest('.file_upload').style.border = "5px solid yellow";
+        item.closest('.file_upload').classList.add('high-light');
     }
 
     function unHighLight(item) {
-        item.closest('.file_upload').style.border = "none";
+        item.closest('.file_upload').classList.remove('high-light');
+/*        item.closest('.file_upload').style.border = "none";
         if (item.closest('.calc_form')) {
             item.closest('.file_upload').style.backgroundColor = "#fff";
         } else {
             item.closest('.file_upload').style.backgroundColor = "#ededed";
-        }
+        }*/
     }
 
     let defaultBG = null;

@@ -1505,6 +1505,21 @@ h4 {
     border: none;
 }
 
+.high-light, .calc .high-light, .popup-design .high-light, .main .high-light {
+    position: fixed;
+    z-index: 999;
+    top: 5%;
+    left: 5%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-color: #F7E7E6cc;
+    width: 90%;
+    height: 90%;
+    border-radius: 50px;
+}
+
+
 .popup-content {
     position: fixed;
     text-align: center;
@@ -1519,7 +1534,7 @@ h4 {
 
 .pageup {
     opacity: 0;
-    width: 26px ;
+    width: 26px;
     height: 26px;
     position: fixed;
     bottom: 100px;
