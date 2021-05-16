@@ -16,10 +16,8 @@ const scrolling = (upSelector) => {
         speed = 0.2;
 
     links.forEach(link => {
-        console.log(3);
         link.addEventListener('click', function (event) {
             event.preventDefault();
-            console.log(1);
             let widthTop = document.documentElement.scrollTop,
                 hash = this.hash,
                 toBlock = document.querySelector(hash).getBoundingClientRect().top,
@@ -34,7 +32,7 @@ const scrolling = (upSelector) => {
 
                 let progress = time - start,
                     r = (toBlock < 0 ? Math.max(widthTop - progress/speed, widthTop + toBlock) :
-                        Math.max(widthTop + progress/speed, widthTop - toBlock));
+                        Math.min(widthTop + progress/speed, widthTop + toBlock));
                 document.documentElement.scrollTo(0, r);
 
                 if (r != widthTop + toBlock) {
@@ -53,7 +51,6 @@ const scrolling = (upSelector) => {
     const calcScroll = () => {
         upElev.addEventListener('click', function (event) {
             let scrollTop = Math.round(body.scrollTop || element.scrollTop);
-            console.log('click');
             if (this.hash !== '') {
                 event.preventDefault();
                 let hashElement = document.querySelector(this.hash),
